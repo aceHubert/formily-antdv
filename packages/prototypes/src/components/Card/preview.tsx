@@ -8,42 +8,45 @@ import {
   TreeNodeWidget,
   DroppableWidget,
 } from '@formily/antdv-designable'
+import { observer } from '@formily/reactive-vue'
 import { createVoidFieldSchema } from '../Field'
 import { AllSchemas } from '../../schemas'
 import { AllLocales } from '../../locales'
 
 export const Card = composeExport(
-  defineComponent({
-    props: { title: {} },
-    setup(props, { attrs }) {
-      const nodeRef = useTreeNode()
+  observer(
+    defineComponent({
+      props: { title: {} },
+      setup(props, { attrs }) {
+        const nodeRef = useTreeNode()
 
-      return () => {
-        const node = unref(nodeRef)
+        return () => {
+          const node = unref(nodeRef)
 
-        return (
-          <AntCard
-            attrs={attrs}
-            scopedSlots={{
-              title: () => (
-                <span data-content-editable="x-component-props.title">
-                  {props.title}
-                </span>
-              ),
-            }}
-          >
-            {node.children.length ? (
-              node.children.map((child) => (
-                <TreeNodeWidget key={uid()} node={child} />
-              ))
-            ) : (
-              <DroppableWidget key={uid()} node={node} />
-            )}
-          </AntCard>
-        )
-      }
-    },
-  }),
+          return (
+            <AntCard
+              attrs={attrs}
+              scopedSlots={{
+                title: () => (
+                  <span data-content-editable="x-component-props.title">
+                    {props.title}
+                  </span>
+                ),
+              }}
+            >
+              {node.children.length ? (
+                node.children.map((child) => (
+                  <TreeNodeWidget key={uid()} node={child} />
+                ))
+              ) : (
+                <DroppableWidget key={uid()} node={node} />
+              )}
+            </AntCard>
+          )
+        }
+      },
+    })
+  ),
   {
     Behavior: createBehavior({
       name: 'Card',
