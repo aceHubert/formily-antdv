@@ -95,8 +95,12 @@ const RadioGroup = connect(
   mapReadPretty(PreviewText.Select)
 )
 
-export const Radio = composeExport(AntdRadio, {
-  Group: RadioGroup,
-})
+export const Radio = composeExport(
+  // TIPS: 导致ant-design-vue的radio.group组件被修改无法正常使用
+  { ...AntdRadio },
+  {
+    Group: RadioGroup,
+  }
+)
 
 export default Radio
