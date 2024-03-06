@@ -64,14 +64,14 @@ export const FieldPropertySetter = defineComponent({
               overflowX: 'hidden',
             }}
             defaultActive={selectKey}
-            onSelect={(selectedKey) => {
-              setSelectKey(selectedKey)
+            onSelect={({ key }) => {
+              setSelectKey(key)
             }}
           >
             {FieldProperties.map((key) => {
               if (isPlainObj(key)) {
                 return (
-                  <Menu.Item index={key.key}>
+                  <Menu.Item key={key.key}>
                     <TextWidget
                       token={`SettingComponents.ReactionsSetter.${
                         key.token || key.key
@@ -81,7 +81,7 @@ export const FieldPropertySetter = defineComponent({
                 )
               }
               return (
-                <Menu.Item index={key}>
+                <Menu.Item key={key}>
                   <TextWidget
                     token={`SettingComponents.ReactionsSetter.${key}`}
                   />
